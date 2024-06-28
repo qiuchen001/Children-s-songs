@@ -27,7 +27,10 @@ func Router() *gin.Engine {
 	// 歌曲
 	song := r.Group("/song")
 	{
-		song.GET("/list", controllers.NewSongController().List)
+		songService := services.NewSongService()
+		songController := controllers.NewSongController(songService)
+
+		song.GET("/list", songController.List)
 	}
 
 	return r

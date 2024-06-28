@@ -6,15 +6,15 @@ import (
 )
 
 type IBannerService interface {
-	List(ctx *gin.Context) (models.Banner, error)
+	List(ctx *gin.Context) (models.Song, error)
 }
 
 type BannerService struct {
 }
 
-func (b *BannerService) List(ctx *gin.Context) (models.Banner, error) {
+func (b *BannerService) List(ctx *gin.Context) (models.Song, error) {
 
-	return models.Banner{}, nil
+	return models.Song{}, nil
 }
 
 func NewBannerService() IBannerService {

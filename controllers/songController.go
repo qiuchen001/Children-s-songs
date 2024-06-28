@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"children-songs/pkg/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,12 +17,18 @@ type ISongController interface {
 }
 
 type SongController struct {
+	SongService services.ISongService
 }
 
 func (b SongController) List(ctx *gin.Context) {
-	ctx.JSON(200, map[string]interface{}{})
+	banner, err := b.SongService.List(ctx)
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(200, banner)
 }
 
-func NewSongController() ISongController {
-	return &SongController{}
+func NewSongController(s services.ISongService) ISongController {
+	return &SongController{SongService: s}
 }
